@@ -21,10 +21,10 @@ public class WalletTest
         
         Wallet wallet=new Wallet();
         double amount=200.00;
-        double previous_balance=wallet.getBalance();
+        double previous_balance=wallet.getBalance(Currency.RUPEES);
         
-        wallet.addMoney(amount);
-        double current_balance=wallet.getBalance();
+        wallet.addMoney(amount,Currency.DOLLARS);
+        double current_balance=wallet.getBalance(Currency.RUPEES);
 
         assertTrue(current_balance>previous_balance);
     }
@@ -35,10 +35,10 @@ public class WalletTest
         Wallet wallet=new Wallet();
 
         double amount=150.00;
-        wallet.addMoney(200.00);
+        wallet.addMoney(200.00,Currency.RUPEES);
 
-        double withdrawal_amount=wallet.withdrawMoney(amount);
-        double current_balance=wallet.getBalance();
+        double withdrawal_amount=wallet.withdrawMoney(amount,Currency.RUPEES);
+        double current_balance=wallet.getBalance(Currency.RUPEES);
         
         assertTrue(withdrawal_amount==amount);
         assertEquals(current_balance, 50, 0);
@@ -49,9 +49,9 @@ public class WalletTest
         
         Wallet wallet=new Wallet();
 
-        double amount=150.00;
-        wallet.addMoney(20.00);
+        double amount=1.00;
+        wallet.addMoney(20.00,Currency.RUPEES);
 
-        assertThrows(InsufficientBalanceException.class, ()->wallet.withdrawMoney(amount), "Expected to throw InsufficientBalanceException");
+        assertThrows(InsufficientBalanceException.class, ()->wallet.withdrawMoney(amount,Currency.DOLLARS), "Expected to throw InsufficientBalanceException");
     }
 }
