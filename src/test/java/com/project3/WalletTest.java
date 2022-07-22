@@ -54,4 +54,16 @@ public class WalletTest
 
         assertThrows(InsufficientBalanceException.class, ()->wallet.withdrawMoney(amount,Currency.DOLLARS), "Expected to throw InsufficientBalanceException");
     }
+
+    @Test
+    public void shouldShowCorrectAvailableBalance() {
+        
+        Wallet wallet=new Wallet();
+
+        wallet.addMoney(80, Currency.RUPEES);
+        wallet.addMoney(1, Currency.DOLLARS);
+        wallet.addMoney(160, Currency.RUPEES);
+
+        assertEquals(4, wallet.getBalance(Currency.DOLLARS));
+    }
 }
